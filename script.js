@@ -27,19 +27,19 @@ function LinkedList() {
       list[0].nextNode = newNode;
       list.splice(1, 0, newNode);
   };
-
+  
   function size() {
     return list.length
   };
-
+  
   function head() {
     return list[1];
   };
- 
+  
   function tail() {
     return list[list.length-1];
   };
-
+  
   function at(index) {
     return list[index];
   };
@@ -54,11 +54,11 @@ function LinkedList() {
     }
     return false;
   };
-
+  
   function find(value) {
     return list.findIndex(obj => obj.value === value);
   };
-
+  
   function toString() {
     let preview = '';
     list.forEach(obj => {
@@ -67,6 +67,20 @@ function LinkedList() {
       };
     });
     return `${preview} null`;
+  };
+  
+  function insertAt(newValue, index) {
+    const newNode = Node(newValue);
+    if (list.length >= index) {
+      newNode.nextNode = list[index];
+    };
+    list[index-1].nextNode = newNode;
+    list.splice(index, 0, newNode);
+  };
+
+  function removeAt(index) {
+    list.splice(index, 1)
+    list[index].nextNode = list[index + 1]
   };
 
   // also correct
@@ -86,18 +100,22 @@ function LinkedList() {
     pop,
     contains,
     find,
-    toString
+    toString,
+    insertAt,
+    removeAt
   };
 };
 
 const linkedList = LinkedList();
-linkedList.append(10);
-linkedList.prepend(20);
+linkedList.prepend(1);
+linkedList.append(2);
 
 console.log(linkedList.toString());
-linkedList.append(130);
+linkedList.append(3);
+linkedList.insertAt('ALPHA', 2)
 console.log(linkedList.toString());
-
+linkedList.removeAt(2)
+console.log(linkedList.toString());
 // console.log(linkedList.size());
 // console.log(linkedList.head());
 // console.log(linkedList.tail());
